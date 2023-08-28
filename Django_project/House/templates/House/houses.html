@@ -1,0 +1,31 @@
+{% extends 'House/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" src="{% static 'House/css/houses.css' %}" type="text/css">
+
+
+  <section class="mb-28">
+    <form class="mb-4 center-section" method="get" action="{% url 'search_houses' %}">
+      <div class="flex" >
+        <input type="text" name="Search by name or location" class="border p-2 rounded-lg" placeholder="Search by name or location">
+        <input type="number" name="min_price" class="border p-2 ml-4 rounded-lg" placeholder="Min Price">
+        <input type="number" name="max_price" class="border p-2 ml-4 rounded-lg" placeholder="Max Price">
+        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 ml-4 rounded-lg">Search</button>
+      </div>
+    </form>
+  </section>
+
+  <div class="grid grid-cols-3 gap-8">
+    {% for house in houses %}
+      <div class="border rounded-lg p-4">
+        <img class="w-full h-48 object-cover mb-4" src="{{ house.img.url }}" alt="{{ house.name }}">
+        <h3 class="text-xl font-bold">{{ house.name }}</h3>
+        <p class="text-gray-600">{{ house.desc }}</p>
+        <p class="text-green-600 font-bold mt-2">Price: ${{ house.price }}</p>
+        <a href="{% url 'contact_agent' house.id %}" class="block bg-blue-500 hover:bg-blue-600 text-white text-center py-1 px-0 mt-4 rounded-lg btn-sm">More details <i class="fas fa-phone text-right"></i></a>    
+      </div>
+    {% endfor %}
+  </div>
+{% endblock content %}

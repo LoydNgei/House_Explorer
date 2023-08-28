@@ -1,0 +1,14 @@
+<!-- signup.html -->
+
+{% extends 'House/base.html' %}
+
+{% block title %}
+    Logout
+{% endblock %}
+
+{% block content %}
+<h1>Oops! You have been logged out</h1>
+<div class="text-sm mt-4">
+    <p><a href="{% url 'login' %}" class="text-blue-500">Log In Again</a></p>
+</div>
+{% endblock %}

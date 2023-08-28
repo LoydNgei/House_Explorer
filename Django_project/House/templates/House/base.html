@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+      <title>
+        {% block title %}
+            House Explorer
+        {% endblock %}
+      </title>
+      
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+      <!-- <link href="{% static 'House/css/base.css' %}" rel="stylesheet" type="text/css"> -->
+
+    </head>
+  <body class="flex flex-col min-h-screen bg-gray-100">
+      <header class="text-white static">
+        <nav class="bg-navy-blue shadow-lg">
+          <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+              <div class="logo-container flex-shrink-0">
+                <img src="{% static '/House/images/Logo.png' %}" alt="logo" class="w-24 h-22 rounded-lg">
+              </div>
+              <ul class="flex space-x-12 text-xl text-gray-800">
+                <li><a href="{% url 'House-home' %}" class="hover:text-blue-400">Home</a></li>
+                <li><a href="{% url 'House-houses' %}" class="hover:text-blue-400">Houses</a></li>
+                <li><a href="{% url 'House-about' %}" class="hover:text-blue-400">About</a></li>
+                {% if user.is_authenticated %}
+                  <li><a href="{% url 'logout' %}" class="hover:text-blue-400">Logout</a></li>
+                {% else %}
+                  <li><a href="{% url 'login' %}" class="hover:text-blue-400">Login</a></li>
+                  <li><a href="{% url 'signup' %}" class="hover:text-blue-400">Sign up</a></li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </nav>
+        
+      </header>
+
+    <main class="container mx-auto py-8 flex-1 hover-bg-house-image bg-center bg-cover bg-opacity-70"> 
+      {% if messages %}
+        {% for message in messages %}
+          <div class="py-2 px-4 {{ 
+            'bg-green-500 text-white' if message.tags == 'success' else 
+            'bg-red-500 text-white' if message.tags == 'error' else 
+            'bg-blue-500 text-white' if message.tags == 'info' else 
+            'bg-yellow-500 text-black'
+          }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      {% block content %}
+        <h1>Home</h1>
+      {% endblock %}
+    </main>
+
+    <!-- Add Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Add Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+
+    <!-- THE FOOTER -->
+
+    <footer class="bg-gray-900 text-white py-8">
+      <div class="container mx-auto flex flex-col items-center">
+        <div class="flex items-center space-x-6">
+          <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+            <i class="fab fa-facebook text-2xl"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+            <i class="fab fa-twitter text-2xl"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+            <i class="fab fa-instagram text-2xl"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+            <i class="fab fa-linkedin-in text-2xl"></i>
+          </a>
+        </div>
+        <div class="text-sm mt-8">
+          &copy; 2023 House Explorer. All rights reserved.
+        </div>
+        <div class="mt-8 text-sm text-gray-400">
+          Developed with ❤ by House Explorer Team
+        </div>
+      </div>
+    </footer>
+
+
+
+  </body>
+</html>

@@ -1,0 +1,119 @@
+<!-- House/home.html -->
+{% extends 'House/base.html' %}
+{% load static %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block content %}
+<body>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <!-- <link rel="stylesheet" href="{% static 'House/css/home.css' %}"> -->
+  <script src="{% static 'House/js/carousel.js' %}"></script>
+  <script src="{% static 'House/js/count.js' %}"></script>
+</body>
+
+
+
+    <!-- BRIEF INFORMATION ABOUT OUR WEB APP -->
+
+    <section class="flex flex-wrap items-center py-8">
+        <div class="w-full md:w-1/2 px-4">
+            <h1 class="text-3xl font-semibold mb-4">Welcome to Home Explorer</h1>
+            <p class="text-gray-600">Experience comfort and luxury like never before in our beautiful homes.</p>
+        </div>
+        <div class="w-full md:w-1/2 px-4">
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div class="carousel owl-carousel">
+                <div class="item">
+                  <img src="{% static 'House/images/8.jpeg' %}" alt="Image 1" class="w-full h-auto rounded-lg">
+                </div>
+                <div class="item">
+                  <img src="{% static 'House/images/8.jpeg' %}" alt="Image 2" class="w-full h-auto rounded-lg">
+                </div>
+                <!-- Add more items as needed -->
+              </div>
+            </div>
+          </div>
+        
+    </section>
+
+    <!-- STATISTICS SECTION -->
+
+    <section id="count-section" class="py-10">
+      <div class="mx-auto max-w-screen-2xl bg-green-800 relative rounded-lg">
+          <dl class="sm:rounded-3xl bg-primary shadow-lg sm:grid sm:grid-cols-2 lg:grid-cols-4 lg:py-10">
+              <div class="flex flex-col border-b border-primary-800 p-6 text-center sm:border-0">
+                <dt class="order-2 mt-2 font-semibold leading-none text-primary-900">Houses Available</dt>
+                <dd class="order-1 text-5xl font-bold tracking-tight text-white count" data-target="350"></dd>
+              </div>
+
+              <div class="flex flex-col border-b border-primary-800 p-6 text-center sm:border-0">
+                <dt class="order-2 mt-2 font-semibold leading-none text-primary-900">Active Users</dt>
+                <dd class="order-1 text-5xl font-bold tracking-tight text-white count" data-target="600"></dd>
+              </div>
+          
+              <div class="flex flex-col border-b border-primary-800 p-6 text-center sm:border-0">
+                <dt class="order-2 mt-2 font-semibold leading-none text-primary-900">Satisfied clients</dt>
+                <dd class="order-1 text-5xl font-bold tracking-tight text-white count" data-target="900"></dd>
+              </div>
+
+
+              <div class="flex flex-col border-b border-primary-800 p-6 text-center sm:border-0">
+                <dt class="order-2 mt-2 font-semibold leading-none text-primary-900">Agent Availability</dt>
+                <dd class="order-1 text-5xl font-bold tracking-tight text-white">24/7</dd>
+              </div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+
+    
+  <section class="flex flex-col items-center py-16">
+    <h2 class="text-3xl font-bold mb-4">Testimonials</h2>
+    <div class="max-w-lg w-full bg-white shadow-md p-6 rounded-lg">
+      <!-- Recommendation 1 -->
+      <div class="mb-4">
+        <p class="text-gray-600 mb-2">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod."</p>
+        <p class="text-gray-800 font-semibold">- John Doe</p>
+      </div>
+      <!-- Recommendation 2 -->
+      <div class="mb-4">
+        <p class="text-gray-600 mb-2">"Ut vehicula nunc sed rutrum. Proin eget tortor risus. Curabitur non nulla sit amet."</p>
+        <p class="text-gray-800 font-semibold">- Jane Smith</p>
+      </div>
+      <!-- Recommendation 3 -->
+      <div>
+        <p class="text-gray-600 mb-2">"Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum."</p>
+        <p class="text-gray-800 font-semibold">- Michael Johnson</p>
+      </div>
+    </div>
+  </section>
+
+
+
+    <!-- TOP FEATURED HOUSES -->
+  
+  <section>
+    <h2 class="text-2xl focus\:ring-offset-gray-200 mb-4">Top Featured Houses</h2>
+    <div class="grid grid-cols-3 gap-8">
+        {% for house in houses %}
+          <div class="border rounded-lg p-4">
+            <img class="w-full h-48 object-cover mb-4" src="{{ house.img.url }}" alt="{{ house.name }}">
+            <h3 class="text-xl font-bold">{{ house.name }}</h3>
+            <p class="text-gray-600">{{ house.desc }}</p>
+            <p class="font-bold mt-2">Price: ${{ house.price }}</p>
+            <a href="{% url 'contact_agent' house.id %}" class="block bg-green-500 hover:bg-gray-50 text-white text-center py-2 mt-4 rounded-lg">Contact Agent</a>
+          </div>
+        {% endfor %}
+      </div>
+  </section>
+    
+    
+{% endblock content %}
